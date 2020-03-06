@@ -1,12 +1,14 @@
 ('use strict');
 //Global initializations
-const welcomeHeading = document.getElementById('contentHeading');
+const contentHeading = document.getElementById('contentHeading');
+const contentHeadnigRow = document.getElementById('contentHeadingRow');
 const timerSpan = document.getElementById('timer');
 const mainContentBlock = document.getElementById('mainContent');
 const mainContainer = document.getElementById('mainContainer');
 
 let initWelcomeBlock = function init() {
-  welcomeHeading.textContent = 'Coding Quiz Challenge';
+  contentHeading.setAttribute('class', 'h1 text-center');
+  contentHeading.textContent = 'Coding Quiz Challenge';
   //reset the timer text
   timerSpan.textContent = 'Time : 0';
   //add a descriptive paragraph about the quiz, scoring and timer rules.
@@ -19,12 +21,14 @@ let initWelcomeBlock = function init() {
   const quizDescCol = bootStrapHelper.getootStrapGridColumn(
     'quizDescCol',
     'div',
-    'col mx-auto'
+    'col-4 mx-auto'
   );
   quizDescCol.appendChild(quizDescription);
   quizDescriptionRow.appendChild(quizDescCol);
-  console.log(quizDescriptionRow);
   mainContainer.appendChild(quizDescriptionRow);
+
+  //add the start quiz button
+  const startQuizButton = document.createElement('button');
 };
 
 initWelcomeBlock();

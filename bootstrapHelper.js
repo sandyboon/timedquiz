@@ -7,12 +7,12 @@ bootStrapHelper.getBootStrapGridRow = function(
   elementType,
   additionalClasses
 ) {
-  const bootstrapRow = document.createElement(elementType);
+  const bootstrapElement = document.createElement(elementType);
   id = helper.checkIfValueIsPresent(id) ? id : helper.getNextId();
-  bootstrapRow.setAttribute('id', id);
+  bootstrapElement.setAttribute('id', id);
   let bootStrapClass = helper.prependStringIfMissing(additionalClasses, 'row');
-  bootstrapRow.setAttribute('class', bootStrapClass);
-  return bootstrapRow;
+  bootstrapElement.setAttribute('class', bootStrapClass);
+  return bootstrapElement;
 };
 
 bootStrapHelper.getootStrapGridColumn = function(
@@ -20,12 +20,12 @@ bootStrapHelper.getootStrapGridColumn = function(
   elementType,
   additionalClasses
 ) {
-  const bootstrapColumn = document.createElement(elementType);
+  const bootstrapElement = document.createElement(elementType);
   id = helper.checkIfValueIsPresent(id) ? id : helper.getNextId();
-  bootstrapColumn.setAttribute('id', id);
+  bootstrapElement.setAttribute('id', id);
   let bootStrapClass = helper.prependStringIfMissing(additionalClasses, 'col');
-  bootstrapColumn.setAttribute('class', bootStrapClass);
-  return bootstrapColumn;
+  bootstrapElement.setAttribute('class', bootStrapClass);
+  return bootstrapElement;
 };
 
 // export default bootStrapHelper;

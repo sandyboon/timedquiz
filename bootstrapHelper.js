@@ -7,10 +7,12 @@ bootStrapHelper.getBootStrapGridRow = function(
   elementType,
   additionalClasses
 ) {
-  const bootstrapElement = document.createElement(elementType);
-  id = helper.checkIfValueIsPresent(id) ? id : helper.getNextId();
-  bootstrapElement.setAttribute('id', id);
-  let bootStrapClass = helper.prependStringIfMissing(additionalClasses, 'row');
+  let bootstrapElement = createDomElement(id, elementType);
+  let bootStrapClass = helper.prependStringIfMissing(
+    additionalClasses,
+    'row',
+    true
+  );
   bootstrapElement.setAttribute('class', bootStrapClass);
   return bootstrapElement;
 };
@@ -20,12 +22,41 @@ bootStrapHelper.getootStrapGridColumn = function(
   elementType,
   additionalClasses
 ) {
-  const bootstrapElement = document.createElement(elementType);
-  id = helper.checkIfValueIsPresent(id) ? id : helper.getNextId();
-  bootstrapElement.setAttribute('id', id);
-  let bootStrapClass = helper.prependStringIfMissing(additionalClasses, 'col');
+  let bootstrapElement = createDomElement(id, elementType);
+  let bootStrapClass = helper.prependStringIfMissing(
+    additionalClasses,
+    'col',
+    true
+  );
   bootstrapElement.setAttribute('class', bootStrapClass);
   return bootstrapElement;
 };
+
+bootStrapHelper.getBootStrapButton = function(
+  id,
+  btnSize,
+  btnType,
+  additionalClasses
+) {
+  let bootstrapElement = createDomElement(id, 'button');
+  let bootStrapClass = 'btn';
+  bootStrapClass = helper.checkIfValueIsPresent(btnType)
+    ? bootStrapClass.concat(' ').concat(btnType)
+    : bootStrapClass;
+  bootStrapClass = helper.checkIfValueIsPresent(btnSize)
+    ? bootStrapClass.concat(' ').concat(btnSize)
+    : bootStrapClass;
+  bootStrapClass = helper.checkIfValueIsPresent(additionalClasses)
+    ? bootStrapClass.concat(' ').concat(additionalClasses)
+    : bootStrapClass;
+  return bootstrapElement;
+};
+
+function createDomElement(id, domElementType) {
+  let domElement = document.createElement(domElementType);
+  id = helper.checkIfValueIsPresent(id) ? id : helper.getNextId();
+  domElement.setAttribute('id', id);
+  return domElement;
+}
 
 // export default bootStrapHelper;

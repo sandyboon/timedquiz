@@ -16,19 +16,56 @@ let initWelcomeBlock = function init() {
   quizDescription.textContent = allTheContent.quizDescription;
   const quizDescriptionRow = bootStrapHelper.getBootStrapGridRow(
     'quizDescRow',
-    'div'
+    'div',
+    'justify-content-center'
   );
+
   const quizDescCol = bootStrapHelper.getootStrapGridColumn(
     'quizDescCol',
     'div',
-    'col-4 mx-auto'
+    'col-4' //mx-auto'
   );
-  quizDescCol.appendChild(quizDescription);
+  const quizDescContainerRow1 = bootStrapHelper.getBootStrapGridRow(
+    'quizDescContainerRow1',
+    'div',
+    'justify-content-center'
+  );
+  const quizDescContainerColumn = bootStrapHelper.getootStrapGridColumn(
+    'quizDescContainerColumn',
+    'div',
+    'col'
+  );
+  quizDescContainerColumn.appendChild(quizDescription);
+  quizDescContainerRow1.appendChild(quizDescContainerColumn);
+
+  const quizDescContainerRow2 = bootStrapHelper.getBootStrapGridRow(
+    'quizDescContainerRow2',
+    'div',
+    'justify-content-center'
+  );
+  //add the start quiz button
+  const quizStartBtnColumn = bootStrapHelper.getootStrapGridColumn(
+    'quizStartBtnCol',
+    'div',
+    'col-6'
+  );
+  const startQuizButton = bootStrapHelper.getBootStrapButton(
+    'quizStartBtn',
+    'btn-sm',
+    null,
+    null
+  );
+  startQuizButton.textContent = allTheContent.startQuiz;
+  quizStartBtnColumn.appendChild(startQuizButton);
+  quizDescContainerRow2.appendChild(quizStartBtnColumn);
+
+  quizDescCol.appendChild(quizDescContainerRow1);
+  quizDescCol.appendChild(quizDescContainerRow2);
+
   quizDescriptionRow.appendChild(quizDescCol);
   mainContainer.appendChild(quizDescriptionRow);
-
-  //add the start quiz button
-  const startQuizButton = document.createElement('button');
 };
+
+//define behaviour for startquiz button click
 
 initWelcomeBlock();

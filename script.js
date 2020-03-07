@@ -21,7 +21,7 @@ function startQuiz() {
   //Start the clock at 75 seconds.
   timerSpan.textContent = 'Time : 75';
   //start the timer
-  let quizTimer = setInterval(updateQuizTimer, 1000);
+  let quizTimer = setInterval(decrementClockByOneSecond, 1000);
 
   //display the first question in the quiz
   displayQuestions();
@@ -55,11 +55,27 @@ function displayQuestion(questionObj) {
 }
 
 function evaluateUserResponse(event) {
+  //draw a horizontal line
+  //but first check if it is already there
+  let horizontalLine = document.getElementById('responseLine');
+  horizontalLine =
+    horizontalLine === null
+      ? bootStrapHelper.createDomElement('responseLine', 'hr')
+      : horizontalLine;
+  let feedbackParagraph = document.createElement('p');
+  feedbackParagraph.setAttribute('class', 'font-italic');
+  document
+    .getElementById(quizDescContainerColumnId)
+    .appendChild(horizontalLine);
   if (event.target.getAttribute('data-correctanswer') === 'false') {
-    alert('You are so wrong!!');
+    //show user feedback
+    feedbackParagraph.textContent = 'Wrong!';
+    decrementClockByOneSecond();
   } else {
-    alert('You are correct!');
+    feedbackParagraph.textContent = 'Correct!!';
   }
+  // move to the next question IF
+  //1. Timer is not 0 && max-index has not been reached yet
 }
 
 function displayQuestionOnDom(index, questionObj, element) {
@@ -86,7 +102,7 @@ function displayQuestionOnDom(index, questionObj, element) {
 
 //define click behaviour for answer choices
 
-function updateQuizTimer() {
+function decrementClockByOneSecond() {
   let timerTextContent = timerSpan.textContent;
   let timeElapsed = timerTextContent.substr('Time : '.length);
   timeElapsed--;

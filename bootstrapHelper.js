@@ -7,7 +7,7 @@ bootStrapHelper.getBootStrapGridRow = function(
   elementType,
   additionalClasses
 ) {
-  let bootstrapElement = createDomElement(id, elementType);
+  let bootstrapElement = this.createDomElement(id, elementType);
   let bootStrapClass = helper.prependStringIfMissing(
     additionalClasses,
     'row',
@@ -22,7 +22,7 @@ bootStrapHelper.getootStrapGridColumn = function(
   elementType,
   additionalClasses
 ) {
-  let bootstrapElement = createDomElement(id, elementType);
+  let bootstrapElement = this.createDomElement(id, elementType);
   let bootStrapClass = helper.prependStringIfMissing(
     additionalClasses,
     'col',
@@ -38,7 +38,7 @@ bootStrapHelper.getBootStrapButton = function(
   btnType,
   additionalClasses
 ) {
-  let bootstrapElement = createDomElement(id, 'button');
+  let bootstrapElement = this.createDomElement(id, 'button');
   let bootStrapClass = 'btn';
   bootStrapClass = helper.checkIfValueIsPresent(btnType)
     ? bootStrapClass.concat(' ').concat(btnType)
@@ -54,7 +54,7 @@ bootStrapHelper.getBootStrapButton = function(
 };
 
 bootStrapHelper.getBootStrapBadge = function(id, badgeType, additionalClasses) {
-  let bootstrapElement = createDomElement(id, 'span');
+  let bootstrapElement = this.createDomElement(id, 'span');
   let bootStrapClass = 'badge';
   bootStrapClass = helper.checkIfValueIsPresent(badgeType)
     ? bootStrapClass.concat(' ').concat(badgeType)
@@ -66,11 +66,11 @@ bootStrapHelper.getBootStrapBadge = function(id, badgeType, additionalClasses) {
   return bootstrapElement;
 };
 
-function createDomElement(id, domElementType) {
+bootStrapHelper.createDomElement = function(id, domElementType) {
   let domElement = document.createElement(domElementType);
   id = helper.checkIfValueIsPresent(id) ? id : helper.getNextId();
   domElement.setAttribute('id', id);
   return domElement;
-}
+};
 
 // export default bootStrapHelper;

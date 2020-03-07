@@ -14,22 +14,32 @@ let quizQuestionArray = [];
 let quizQuestion1 = {
   id: 1,
   question: 'Commonly used data types do NOT include: ',
-  answerchoices: ['strings', 'booleans', 'alerts', 'numbers'],
-  correctAnswer: 'alerts'
+  answerchoices: ['1. strings', '2. booleans', '3. alerts', '4. numbers'],
+  correctAnswer: '3. alerts'
 };
 
 let quizQuestion2 = {
   id: 2,
   question: 'Inside which HTML element do we put the JavaScript?',
-  answerchoices: ['<script>', '<scripting>', '<js>', '<javascript>'],
-  correctAnswer: '<script>'
+  answerchoices: [
+    '1. <script>',
+    '2. <scripting>',
+    '3. <js>',
+    '4. <javascript>'
+  ],
+  correctAnswer: '1. <script>'
 };
 
 let quizQuestion3 = {
   id: 3,
   question: 'Inside which HTML element do we put the JavaScript?',
-  answerchoices: ['<script>', '<scripting>', '<js>', '<javascript>'],
-  correctAnswer: '<script>'
+  answerchoices: [
+    '1. <script>',
+    '2. <scripting>',
+    '3. <js>',
+    '4. <javascript>'
+  ],
+  correctAnswer: '1. <script>'
 };
 
 (function() {

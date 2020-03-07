@@ -49,6 +49,7 @@ bootStrapHelper.getBootStrapButton = function(
   bootStrapClass = helper.checkIfValueIsPresent(additionalClasses)
     ? bootStrapClass.concat(' ').concat(additionalClasses)
     : bootStrapClass;
+  bootstrapElement.setAttribute('class', bootStrapClass);
   return bootstrapElement;
 };
 
@@ -61,6 +62,7 @@ bootStrapHelper.getBootStrapBadge = function(id, badgeType, additionalClasses) {
   bootStrapClass = helper.checkIfValueIsPresent(additionalClasses)
     ? bootStrapClass.concat(' ').concat(additionalClasses)
     : bootStrapClass;
+  bootstrapElement.setAttribute('class', bootStrapClass);
   return bootstrapElement;
 };
 

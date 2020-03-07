@@ -8,6 +8,7 @@ const mainContainer = document.getElementById('mainContainer');
 //IDs defined globally for easy refrences
 const startQuizButtonId = 'quizStartBtn';
 const quizDescContainerColumnId = 'quizDescContainerColumn';
+const answerChoiceId = 'answerchoice'; //'C'.concat(index).concat(questionObj.id);
 
 let initWelcomeBlock = function init() {
   createIntroductionBlock();
@@ -33,7 +34,8 @@ function displayQuestions() {
   questionColumn.setAttribute('class', 'col-4');
   //remove the start quiz button frmo DOM
   document.getElementById(startQuizButtonId).remove();
-  //
+  //empty the quizDescContainerColumn
+  document.getElementById(quizDescContainerColumnId).innerHTML = '';
   displayQuestion(quizQuestionArray[0]);
 }
 
@@ -41,14 +43,48 @@ function displayQuestion(questionObj) {
   contentHeading.textContent = questionObj.question;
   // let quizDescContainerColumn
   questionObj.answerchoices.forEach((element, index) => {
-    let answerChoiceId = 'C'.concat(index).concat(questionObj.id);
-    let answerChoice = bootStrapHelper.getBootStrapBadge(
-      answerChoiceId,
-      'badge-pill',
-      'badge-info'
-    );
+    displayQuestionOnDom(index, questionObj, element);
   });
+
+  document.querySelectorAll('#'.concat(answerChoiceId)).forEach(element => {
+    // alert('choice');
+    element.addEventListener('click', evaluateUserResponse);
+  });
+  // .getElementById(answerChoiceId)
+  // .addEventListener('click', evaluateUserResponse);
 }
+
+function evaluateUserResponse(event) {
+  if (event.target.getAttribute('data-correctanswer') === 'false') {
+    alert('You are so wrong!!');
+  } else {
+    alert('You are correct!');
+  }
+}
+
+function displayQuestionOnDom(index, questionObj, element) {
+  let bootStrapRow = bootStrapHelper.getBootStrapGridRow('choices', 'div');
+  let bootStrapCol = bootStrapHelper.getootStrapGridColumn(
+    'choice',
+    'div',
+    'align-self-end'
+  );
+
+  let answerChoice = bootStrapHelper.getBootStrapBadge(
+    answerChoiceId,
+    'badge-pill',
+    'badge-info mt-2'
+  );
+  answerChoice.textContent = element;
+  //is it the correct answer ?
+  let correctAnswer = element === questionObj.correctAnswer ? 'true' : 'false';
+  answerChoice.setAttribute('data-correctanswer', correctAnswer);
+  bootStrapCol.appendChild(answerChoice);
+  bootStrapRow.appendChild(bootStrapCol);
+  document.getElementById(quizDescContainerColumnId).appendChild(bootStrapRow);
+}
+
+//define click behaviour for answer choices
 
 function updateQuizTimer() {
   let timerTextContent = timerSpan.textContent;
@@ -111,6 +147,11 @@ function createIntroductionBlock() {
   quizDescCol.appendChild(quizDescContainerRow2);
   quizDescriptionRow.appendChild(quizDescCol);
   mainContentBlock.appendChild(quizDescriptionRow);
+}
+
+function endQuiz() {
+  //stop the time
+  //display score etc etx
 }
 
 initWelcomeBlock();

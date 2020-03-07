@@ -5,6 +5,9 @@ const contentHeadnigRow = document.getElementById('contentHeadingRow');
 const timerSpan = document.getElementById('timer');
 const mainContentBlock = document.getElementById('mainContent');
 const mainContainer = document.getElementById('mainContainer');
+//IDs defined globally for easy refrences
+const startQuizButtonId = 'quizStartBtn';
+const quizDescContainerColumnId = 'quizDescContainerColumn';
 
 let initWelcomeBlock = function init() {
   createIntroductionBlock();
@@ -20,9 +23,32 @@ function startQuiz() {
   let quizTimer = setInterval(updateQuizTimer, 1000);
 
   //display the first question in the quiz
+  displayQuestions();
 }
 
-function displayQuestion() {}
+function displayQuestions() {
+  //set the content heading to h2 now. Questions will be places there.
+  contentHeading.setAttribute('class', 'h3');
+  let questionColumn = document.getElementById('contentHeadingCol');
+  questionColumn.setAttribute('class', 'col-4');
+  //remove the start quiz button frmo DOM
+  document.getElementById(startQuizButtonId).remove();
+  //
+  displayQuestion(quizQuestionArray[0]);
+}
+
+function displayQuestion(questionObj) {
+  contentHeading.textContent = questionObj.question;
+  // let quizDescContainerColumn
+  questionObj.answerchoices.forEach((element, index) => {
+    let answerChoiceId = 'C'.concat(index).concat(questionObj.id);
+    let answerChoice = bootStrapHelper.getBootStrapBadge(
+      answerChoiceId,
+      'badge-pill',
+      'badge-info'
+    );
+  });
+}
 
 function updateQuizTimer() {
   let timerTextContent = timerSpan.textContent;
@@ -55,7 +81,7 @@ function createIntroductionBlock() {
     'justify-content-center'
   );
   const quizDescContainerColumn = bootStrapHelper.getootStrapGridColumn(
-    'quizDescContainerColumn',
+    quizDescContainerColumnId,
     'div',
     'col'
   );
@@ -73,7 +99,7 @@ function createIntroductionBlock() {
     'col-6'
   );
   const startQuizButton = bootStrapHelper.getBootStrapButton(
-    'quizStartBtn',
+    startQuizButtonId,
     'btn-sm',
     null,
     null
@@ -84,7 +110,7 @@ function createIntroductionBlock() {
   quizDescCol.appendChild(quizDescContainerRow1);
   quizDescCol.appendChild(quizDescContainerRow2);
   quizDescriptionRow.appendChild(quizDescCol);
-  mainContainer.appendChild(quizDescriptionRow);
+  mainContentBlock.appendChild(quizDescriptionRow);
 }
 
 initWelcomeBlock();

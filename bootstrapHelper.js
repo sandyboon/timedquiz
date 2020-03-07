@@ -52,6 +52,18 @@ bootStrapHelper.getBootStrapButton = function(
   return bootstrapElement;
 };
 
+bootStrapHelper.getBootStrapBadge = function(id, badgeType, additionalClasses) {
+  let bootstrapElement = createDomElement(id, 'span');
+  let bootStrapClass = 'badge';
+  bootStrapClass = helper.checkIfValueIsPresent(badgeType)
+    ? bootStrapClass.concat(' ').concat(badgeType)
+    : bootStrapClass;
+  bootStrapClass = helper.checkIfValueIsPresent(additionalClasses)
+    ? bootStrapClass.concat(' ').concat(additionalClasses)
+    : bootStrapClass;
+  return bootstrapElement;
+};
+
 function createDomElement(id, domElementType) {
   let domElement = document.createElement(domElementType);
   id = helper.checkIfValueIsPresent(id) ? id : helper.getNextId();

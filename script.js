@@ -7,6 +7,31 @@ const mainContentBlock = document.getElementById('mainContent');
 const mainContainer = document.getElementById('mainContainer');
 
 let initWelcomeBlock = function init() {
+  createIntroductionBlock();
+
+  //define behaviour for startquiz button click
+  document.getElementById('quizStartBtn').addEventListener('click', startQuiz);
+};
+
+function startQuiz() {
+  //Start the clock at 75 seconds.
+  timerSpan.textContent = 'Time : 75';
+  //start the timer
+  let quizTimer = setInterval(updateQuizTimer, 1000);
+
+  //display the first question in the quiz
+}
+
+function displayQuestion() {}
+
+function updateQuizTimer() {
+  let timerTextContent = timerSpan.textContent;
+  let timeElapsed = timerTextContent.substr('Time : '.length);
+  timeElapsed--;
+  timerSpan.textContent = 'Time : ' + timeElapsed;
+}
+
+function createIntroductionBlock() {
   contentHeading.setAttribute('class', 'h1 text-center');
   contentHeading.textContent = 'Coding Quiz Challenge';
   //reset the timer text
@@ -19,7 +44,6 @@ let initWelcomeBlock = function init() {
     'div',
     'justify-content-center'
   );
-
   const quizDescCol = bootStrapHelper.getootStrapGridColumn(
     'quizDescCol',
     'div',
@@ -37,7 +61,6 @@ let initWelcomeBlock = function init() {
   );
   quizDescContainerColumn.appendChild(quizDescription);
   quizDescContainerRow1.appendChild(quizDescContainerColumn);
-
   const quizDescContainerRow2 = bootStrapHelper.getBootStrapGridRow(
     'quizDescContainerRow2',
     'div',
@@ -58,14 +81,10 @@ let initWelcomeBlock = function init() {
   startQuizButton.textContent = allTheContent.startQuiz;
   quizStartBtnColumn.appendChild(startQuizButton);
   quizDescContainerRow2.appendChild(quizStartBtnColumn);
-
   quizDescCol.appendChild(quizDescContainerRow1);
   quizDescCol.appendChild(quizDescContainerRow2);
-
   quizDescriptionRow.appendChild(quizDescCol);
   mainContainer.appendChild(quizDescriptionRow);
-};
-
-//define behaviour for startquiz button click
+}
 
 initWelcomeBlock();

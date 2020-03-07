@@ -6,3 +6,31 @@ let allTheContent = {
   welcomeHeading: 'Coding Quiz Challenge',
   startQuiz: 'Start Quiz'
 };
+
+//quizQuestion array. We will push questions later
+let quizQuestionArray = [];
+
+//Quiz Questions described here
+let quizQuestion1 = {
+  question: 'Commonly used data types do NOT include: ',
+  answerchoices: ['strings', 'booleans', 'alerts', 'numbers'],
+  correctAnswer: 'alerts'
+};
+
+let quizQuestion2 = {
+  question: 'Inside which HTML element do we put the JavaScript?',
+  answerchoices: ['<script>', '<scripting>', '<js>', '<javascript>'],
+  correctAnswer: '<script>'
+};
+
+let quizQuestion3 = {
+  question: 'Inside which HTML element do we put the JavaScript?',
+  answerchoices: ['<script>', '<scripting>', '<js>', '<javascript>'],
+  correctAnswer: '<script>'
+};
+
+function defineQuizQuestionArray() {
+  quizQuestionArray.push(quizQuestion1);
+  quizQuestionArray.push(quizQuestion2);
+  quizQuestionArray.push(quizQuestion3);
+}

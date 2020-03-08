@@ -5,10 +5,12 @@ const contentHeadnigRow = document.getElementById('contentHeadingRow');
 const timerSpan = document.getElementById('timer');
 const mainContentBlock = document.getElementById('mainContent');
 const mainContainer = document.getElementById('mainContainer');
+//timer
+let quizTimer;
 //IDs defined globally for easy refrences
 const startQuizButtonId = 'quizStartBtn';
 const quizDescContainerColumnId = 'quizDescContainerColumn';
-const answerChoiceId = 'answerchoice'; //'C'.concat(index).concat(questionObj.id);
+const answerChoiceId = 'answerchoice'; //'C'.concat(index).concat(questionObj.id);`
 
 let initWelcomeBlock = function init() {
   createIntroductionBlock();
@@ -21,7 +23,7 @@ function startQuiz() {
   //Start the clock at 75 seconds.
   timerSpan.textContent = 'Time : 75';
   //start the timer
-  let quizTimer = setInterval(decrementClockByOneSecond, 1000);
+  quizTimer = setInterval(decrementClockByOneSecond, 1000);
 
   //display the first question in the quiz
   displayQuestions();
@@ -100,6 +102,7 @@ function evaluateUserResponse(event) {
     //get the next question
   } else {
     //show the score and save details
+    clearInterval(quizTimer);
     setTimeout(() => {
       showScore();
     }, 2000);
@@ -196,6 +199,10 @@ function decrementClockByOneSecond() {
   let timerTextContent = timerSpan.textContent;
   let timeElapsed = timerTextContent.substr('Time : '.length);
   timeElapsed--;
+  if (timeElapsed <= 0) {
+    //stop the timer
+    clearInterval(quizTimer);
+  }
   timerSpan.textContent = 'Time : ' + timeElapsed;
 }
 

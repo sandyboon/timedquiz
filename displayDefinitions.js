@@ -6,7 +6,7 @@ let allTheContent = {
   welcomeHeading: 'Coding Quiz Challenge',
   startQuiz: 'Start Quiz',
   allDone: 'All Done!',
-  enterYourInitials: 'Enter initial : ',
+  enterYourInitials: 'Enter initials : ',
   finalScoreMessage: 'Your final score is ',
   submitInitialButton: 'Submit'
 };

@@ -66,8 +66,9 @@ bootStrapHelper.getBootStrapBadge = function(id, badgeType, additionalClasses) {
   return bootstrapElement;
 };
 
-bootStrapHelper.getFormInput = function(id, additionalClasses) {
+bootStrapHelper.getFormInput = function(id, inputType, additionalClasses) {
   let bootstrapElement = this.createDomElement(id, 'input');
+  bootstrapElement.setAttribute('type', inputType);
   let bootStrapClass = 'form-control';
   bootStrapClass = helper.checkIfValueIsPresent(additionalClasses)
     ? bootStrapClass.concat(' ').concat(additionalClasses)

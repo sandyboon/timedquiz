@@ -11,6 +11,8 @@ let quizTimer;
 const startQuizButtonId = 'quizStartBtn';
 const quizDescContainerColumnId = 'quizDescContainerColumn';
 const answerChoiceId = 'answerchoice'; //'C'.concat(index).concat(questionObj.id);`
+const initialsInputId = 'initialsInput';
+const delayToShowResponse = 1000;
 
 let initWelcomeBlock = function init() {
   createIntroductionBlock();
@@ -98,14 +100,14 @@ function evaluateUserResponse(event) {
     setTimeout(() => {
       document.getElementById(quizDescContainerColumnId).innerHTML = '';
       displayQuestion(quizQuestionArray[nextQuestionIndex], nextQuestionIndex);
-    }, 2000);
+    }, delayToShowResponse);
     //get the next question
   } else {
     //show the score and save details
     clearInterval(quizTimer);
     setTimeout(() => {
       showScore();
-    }, 2000);
+    }, delayToShowResponse);
   }
 }
 
@@ -119,8 +121,9 @@ function showScore() {
   );
 
   let scoreParagraph = bootStrapHelper.createDomElement('scoreMessage', 'p');
+  let userScore = getCurrentTimeOnTheClock();
   scoreParagraph.textContent = allTheContent.finalScoreMessage
-    .concat(getCurrentTimeOnTheClock())
+    .concat(userScore)
     .concat('.');
   scoreNumberCol.appendChild(scoreParagraph);
   scoreRow.appendChild(scoreNumberCol);
@@ -143,7 +146,8 @@ function showScore() {
     'div',
     'pl-0'
   );
-  let initialsInput = bootStrapHelper.getFormInput('initialsInput');
+  let initialsInput = bootStrapHelper.getFormInput(initialsInputId, 'text');
+  // initialsInput.setAttribute('val', '');
   intialDetailsInputCol.appendChild(initialsInput);
 
   let intialDetailsSubmitCol = bootStrapHelper.getootStrapGridColumn(
@@ -151,9 +155,22 @@ function showScore() {
     'div',
     'col-3'
   );
-  let submitCredButton = bootStrapHelper.getBootStrapButton('submitInitials');
+  let submitCredButton = bootStrapHelper.getBootStrapButton(
+    'submitInitials',
+    null,
+    'btn-success',
+    null
+  );
   submitCredButton.textContent = allTheContent.submitInitialButton;
+  submitCredButton.setAttribute('disabled', 'true'); //keep the btn disabled untill user provides initials
+  //logic to enable the button
+  initialsInput.addEventListener('keyup', function() {
+    submitCredButton.removeAttribute('disabled');
+  });
   intialDetailsSubmitCol.appendChild(submitCredButton);
+  submitCredButton.addEventListener('click', function() {
+    storeScore(userScore);
+  });
   let inputRow = bootStrapHelper.getBootStrapGridRow('inputRow', 'div');
   inputRow.appendChild(intialDetailsCol);
   inputRow.appendChild(intialDetailsInputCol);
@@ -161,6 +178,24 @@ function showScore() {
 
   document.getElementById(quizDescContainerColumnId).appendChild(scoreRow);
   document.getElementById(quizDescContainerColumnId).appendChild(inputRow);
+}
+
+function storeScore(userScore) {
+  let userIntitials = document.getElementById(initialsInputId).value;
+  //get current scores from the storage. if any.
+  let scoresInStorage = localStorage.getItem('scores');
+  if (scoresInStorage === null) {
+    let newScore = {};
+    newScore[userIntitials] = userScore;
+    localStorage.setItem('scores', JSON.stringify(newScore));
+  } else {
+    //we need to merge the current score with the ones already in storage
+    let scoresInStorageObj = JSON.parse(scoresInStorage);
+    scoresInStorageObj[userIntitials] = userScore;
+    console.log('new score obj: ' + JSON.stringify(scoresInStorageObj));
+    //push it into storage
+    localStorage.setItem('scores', JSON.stringify(scoresInStorageObj));
+  }
 }
 
 function isQuizOver(nextQuestionIndex) {

@@ -124,7 +124,8 @@ function showScore() {
 
   let intialDetailsCol = bootStrapHelper.getootStrapGridColumn(
     'initialDetailsCol',
-    'div'
+    'div',
+    'col-3 pr-0'
   );
 
   let initialMessageParagraph = bootStrapHelper.createDomElement(
@@ -136,14 +137,16 @@ function showScore() {
 
   let intialDetailsInputCol = bootStrapHelper.getootStrapGridColumn(
     'initialDetailsInputCol',
-    'div'
+    'div',
+    'pl-0'
   );
   let initialsInput = bootStrapHelper.getFormInput('initialsInput');
   intialDetailsInputCol.appendChild(initialsInput);
 
   let intialDetailsSubmitCol = bootStrapHelper.getootStrapGridColumn(
-    'initialDetailsInputCol',
-    'div'
+    'initialDetailsSubmitCol',
+    'div',
+    'col-3'
   );
   let submitCredButton = bootStrapHelper.getBootStrapButton('submitInitials');
   submitCredButton.textContent = allTheContent.submitInitialButton;

@@ -8,7 +8,8 @@ let allTheContent = {
   allDone: 'All Done!',
   enterYourInitials: 'Enter initials : ',
   finalScoreMessage: 'Your final score is ',
-  submitInitialButton: 'Submit'
+  submitInitialButton: 'Submit',
+  highScoresHeading: 'Highscores'
 };
 
 //quizQuestion array. We will push questions later

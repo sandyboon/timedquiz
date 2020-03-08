@@ -19,6 +19,10 @@ let initWelcomeBlock = function init() {
 
   //define behaviour for startquiz button click
   document.getElementById('quizStartBtn').addEventListener('click', startQuiz);
+  //define behaviour for viewHighScore link click
+  document
+    .getElementById('viewHighScores')
+    .addEventListener('click', showScoreHistory);
 };
 
 function startQuiz() {
@@ -196,6 +200,52 @@ function storeScore(userScore) {
     //push it into storage
     localStorage.setItem('scores', JSON.stringify(scoresInStorageObj));
   }
+  showScoreHistory();
+}
+
+function showScoreHistory() {
+  let highScoresColumn = document.getElementById(quizDescContainerColumnId);
+  highScoresColumn.innerHTML = '';
+  if (document.getElementById(startQuizButtonId) !== null) {
+    document.getElementById(startQuizButtonId).remove();
+  }
+  contentHeading.textContent = allTheContent.highScoresHeading;
+  let scoresInStorage = localStorage.getItem('scores');
+  if (scoresInStorage === null) {
+    createAScoreRow('No Highscores yet...', highScoresColumn);
+  } else {
+    let scoresInStorageObj = JSON.parse(scoresInStorage);
+    Object.keys(scoresInStorageObj).forEach(function(key, index) {
+      let scoreIndex = ++index;
+      let scoreMessage = scoreIndex
+        .toString()
+        .concat('. ')
+        .concat(key)
+        .concat('-')
+        .concat(scoresInStorageObj[key]);
+      createAScoreRow(scoreMessage, highScoresColumn);
+    });
+  }
+  let buttonsROw = bootStrapHelper.getBootStrapGridRow(
+    'scoreButtonsRow',
+    'div'
+  );
+  let buttonsCol = bootStrapHelper.getootStrapGridColumn(
+    'scoreButtonsCol',
+    'div'
+  );
+  let goBackButton = bootStrapHelper.getBootStrapButton('goBack', null, '');
+}
+
+function createAScoreRow(scoreMessage, highScoresColumn) {
+  let scoreRow = bootStrapHelper.getBootStrapGridRow('scoreDetails', 'div');
+  let scoreColumn = bootStrapHelper.getootStrapGridColumn('score', 'div');
+  let scoreParagraph = bootStrapHelper.createDomElement('scoreMessage', 'p');
+  scoreParagraph.textContent = scoreMessage; //;
+  scoreParagraph.setAttribute('class', 'bg-dark text-white');
+  scoreColumn.appendChild(scoreParagraph);
+  scoreRow.appendChild(scoreColumn);
+  highScoresColumn.appendChild(scoreRow);
 }
 
 function isQuizOver(nextQuestionIndex) {

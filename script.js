@@ -36,14 +36,14 @@ function displayQuestions() {
   document.getElementById(startQuizButtonId).remove();
   //empty the quizDescContainerColumn
   document.getElementById(quizDescContainerColumnId).innerHTML = '';
-  displayQuestion(quizQuestionArray[0]);
+  displayQuestion(quizQuestionArray[0], 0);
 }
 
-function displayQuestion(questionObj) {
+function displayQuestion(questionObj, currentQuestionIndex) {
   contentHeading.textContent = questionObj.question;
   // let quizDescContainerColumn
-  questionObj.answerchoices.forEach((element, index) => {
-    displayQuestionOnDom(index, questionObj, element);
+  questionObj.answerchoices.forEach(element => {
+    displayQuestionOnDom(currentQuestionIndex, questionObj, element);
   });
 
   document.querySelectorAll('#'.concat(answerChoiceId)).forEach(element => {
@@ -58,27 +58,62 @@ function evaluateUserResponse(event) {
   //draw a horizontal line
   //but first check if it is already there
   let horizontalLine = document.getElementById('responseLine');
-  horizontalLine =
-    horizontalLine === null
-      ? bootStrapHelper.createDomElement('responseLine', 'hr')
-      : horizontalLine;
-  let feedbackParagraph = document.createElement('p');
+  let feedbackParagraph = document.getElementById('feedbackParagraph');
+  if (feedbackParagraph !== null && feedbackParagraph.textContent !== '') {
+    //already provided feedback
+    return;
+  }
+
+  if (horizontalLine === null) {
+    horizontalLine = bootStrapHelper.createDomElement('responseLine', 'hr');
+    document
+      .getElementById(quizDescContainerColumnId)
+      .appendChild(horizontalLine);
+  }
+  feedbackParagraph = bootStrapHelper.createDomElement(
+    'feedbackParagraph',
+    'p'
+  );
   feedbackParagraph.setAttribute('class', 'font-italic');
-  document
-    .getElementById(quizDescContainerColumnId)
-    .appendChild(horizontalLine);
+  let currentQuestionIndex = parseInt(
+    event.target.getAttribute('data-questionindex')
+  );
+
   if (event.target.getAttribute('data-correctanswer') === 'false') {
-    //show user feedback
     feedbackParagraph.textContent = 'Wrong!';
     decrementClockByOneSecond();
   } else {
     feedbackParagraph.textContent = 'Correct!!';
   }
+  document
+    .getElementById(quizDescContainerColumnId)
+    .appendChild(feedbackParagraph);
   // move to the next question IF
   //1. Timer is not 0 && max-index has not been reached yet
+  let nextQuestionIndex = currentQuestionIndex + 1;
+  if (!isQuizOver(nextQuestionIndex)) {
+    //put some delay so user can see the response before moving on
+    setInterval(() => {
+      document.getElementById(quizDescContainerColumnId).innerHTML = '';
+      displayQuestion(quizQuestionArray[nextQuestionIndex], nextQuestionIndex);
+    }, 3000);
+    //get the next question
+  } else {
+    //show the score and save details
+    alert('quiz is over');
+  }
 }
 
-function displayQuestionOnDom(index, questionObj, element) {
+function showScore() {}
+
+function isQuizOver(nextQuestionIndex) {
+  return (
+    nextQuestionIndex >= quizQuestionArray.length ||
+    getCurrentTimeOnTheClock() <= 0
+  );
+}
+
+function displayQuestionOnDom(currentQuestionIndex, questionObj, element) {
   let bootStrapRow = bootStrapHelper.getBootStrapGridRow('choices', 'div');
   let bootStrapCol = bootStrapHelper.getootStrapGridColumn(
     'choice',
@@ -95,6 +130,7 @@ function displayQuestionOnDom(index, questionObj, element) {
   //is it the correct answer ?
   let correctAnswer = element === questionObj.correctAnswer ? 'true' : 'false';
   answerChoice.setAttribute('data-correctanswer', correctAnswer);
+  answerChoice.setAttribute('data-questionIndex', currentQuestionIndex);
   bootStrapCol.appendChild(answerChoice);
   bootStrapRow.appendChild(bootStrapCol);
   document.getElementById(quizDescContainerColumnId).appendChild(bootStrapRow);
@@ -107,6 +143,12 @@ function decrementClockByOneSecond() {
   let timeElapsed = timerTextContent.substr('Time : '.length);
   timeElapsed--;
   timerSpan.textContent = 'Time : ' + timeElapsed;
+}
+
+function getCurrentTimeOnTheClock() {
+  let timerTextContent = timerSpan.textContent;
+  let timeElapsed = timerTextContent.substr('Time : '.length);
+  return parseInt(timeElapsed);
 }
 
 function createIntroductionBlock() {

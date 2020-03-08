@@ -12,14 +12,12 @@ let quizQuestionArray = [];
 
 //Quiz Questions described here
 let quizQuestion1 = {
-  id: 1,
   question: 'Commonly used data types do NOT include: ',
   answerchoices: ['1. strings', '2. booleans', '3. alerts', '4. numbers'],
   correctAnswer: '3. alerts'
 };
 
 let quizQuestion2 = {
-  id: 2,
   question: 'Inside which HTML element do we put the JavaScript?',
   answerchoices: [
     '1. <script>',
@@ -31,7 +29,6 @@ let quizQuestion2 = {
 };
 
 let quizQuestion3 = {
-  id: 3,
   question: 'Inside which HTML element do we put the JavaScript?',
   answerchoices: [
     '1. <script>',

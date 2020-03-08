@@ -57,9 +57,43 @@ let quizQuestion4 = {
   correctAnswer: '1. window'
 };
 
+let quizQuestion5 = {
+  question: 'Which of the following is not a Javasctipt framework/library',
+  answerchoices: ['1. Jquery', '2. ReactJS', '3. Bootstrap', '4. Angular'],
+  correctAnswer: '3. Bootstrap'
+};
+
+let quizQuestion6 = {
+  question: "It is possible to iterate though an Object's keys ",
+  answerchoices: ['1. True', '2.False'],
+  correctAnswer: '1. True'
+};
+
+let quizQuestion7 = {
+  question: 'Which is NOT a Javscript version ',
+  answerchoices: ['1. ES5', '2. ES6', '3. JS 2018'],
+  correctAnswer: '3. JS 2018'
+};
+
+let quizQuestion8 = {
+  question:
+    'Which of the following methods can be used to select a DOM element?',
+  answerchoices: [
+    '1. getElementById',
+    '2. getElementByClass',
+    '3. querySelector',
+    '4. All of the above'
+  ],
+  correctAnswer: '4. All of the above'
+};
+
 (function() {
   quizQuestionArray.push(quizQuestion1);
   quizQuestionArray.push(quizQuestion2);
   quizQuestionArray.push(quizQuestion3);
   quizQuestionArray.push(quizQuestion4);
+  quizQuestionArray.push(quizQuestion5);
+  quizQuestionArray.push(quizQuestion6);
+  quizQuestionArray.push(quizQuestion7);
+  quizQuestionArray.push(quizQuestion8);
 })();

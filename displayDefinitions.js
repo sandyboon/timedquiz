@@ -9,7 +9,9 @@ let allTheContent = {
   enterYourInitials: 'Enter initials : ',
   finalScoreMessage: 'Your final score is ',
   submitInitialButton: 'Submit',
-  highScoresHeading: 'Highscores'
+  highScoresHeading: 'Highscores',
+  goBackButton: 'Go Back',
+  clearScoresButton: 'Clear HighScores'
 };
 
 //quizQuestion array. We will push questions later
@@ -34,18 +36,30 @@ let quizQuestion2 = {
 };
 
 let quizQuestion3 = {
-  question: 'Inside which HTML element do we put the JavaScript?',
+  question: 'How to stop the timer set by using setInterval() function?',
   answerchoices: [
-    '1. <script>',
-    '2. <scripting>',
-    '3. <js>',
-    '4. <javascript>'
+    '1. clear',
+    '2. clearInterval',
+    '3. stopTime',
+    '4. resetInterval'
   ],
-  correctAnswer: '1. <script>'
+  correctAnswer: '2. clearInterval'
+};
+
+let quizQuestion4 = {
+  question: 'What is the top level global object in the browser',
+  answerchoices: [
+    '1. window',
+    '2. The current function being executed',
+    '3. Undetermined',
+    '4. The current Object in use'
+  ],
+  correctAnswer: '1. window'
 };
 
 (function() {
   quizQuestionArray.push(quizQuestion1);
   quizQuestionArray.push(quizQuestion2);
   quizQuestionArray.push(quizQuestion3);
+  quizQuestionArray.push(quizQuestion4);
 })();

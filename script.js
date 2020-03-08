@@ -37,7 +37,7 @@ function startQuiz() {
 
 function displayQuestions() {
   //set the content heading to h2 now. Questions will be places there.
-  contentHeading.setAttribute('class', 'h3');
+  contentHeading.setAttribute('class', 'h3 mb-2');
   let questionColumn = document.getElementById('contentHeadingCol');
   questionColumn.setAttribute('class', 'col-4');
   //remove the start quiz button frmo DOM
@@ -234,7 +234,31 @@ function showScoreHistory() {
     'scoreButtonsCol',
     'div'
   );
-  let goBackButton = bootStrapHelper.getBootStrapButton('goBack', null, '');
+  let goBackButton = bootStrapHelper.getBootStrapButton(
+    'goBack',
+    null,
+    'btn-primary'
+  );
+  goBackButton.textContent = allTheContent.goBackButton;
+  goBackButton.addEventListener('click', function() {
+    location.reload();
+    return false;
+  });
+  buttonsCol.appendChild(goBackButton);
+
+  let clearHighScoresButton = bootStrapHelper.getBootStrapButton(
+    'clearScores',
+    null,
+    'btn-danger',
+    'ml-2'
+  );
+  clearHighScoresButton.textContent = allTheContent.clearScoresButton;
+  clearHighScoresButton.addEventListener('click', function() {
+    localStorage.clear();
+  });
+  buttonsCol.appendChild(clearHighScoresButton);
+  buttonsROw.appendChild(buttonsCol);
+  highScoresColumn.appendChild(buttonsROw);
 }
 
 function createAScoreRow(scoreMessage, highScoresColumn) {
@@ -351,11 +375,6 @@ function createIntroductionBlock() {
   quizDescCol.appendChild(quizDescContainerRow2);
   quizDescriptionRow.appendChild(quizDescCol);
   mainContentBlock.appendChild(quizDescriptionRow);
-}
-
-function endQuiz() {
-  //stop the time
-  //display score etc etx
 }
 
 initWelcomeBlock();

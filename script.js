@@ -93,18 +93,69 @@ function evaluateUserResponse(event) {
   let nextQuestionIndex = currentQuestionIndex + 1;
   if (!isQuizOver(nextQuestionIndex)) {
     //put some delay so user can see the response before moving on
-    setInterval(() => {
+    setTimeout(() => {
       document.getElementById(quizDescContainerColumnId).innerHTML = '';
       displayQuestion(quizQuestionArray[nextQuestionIndex], nextQuestionIndex);
-    }, 3000);
+    }, 2000);
     //get the next question
   } else {
     //show the score and save details
-    alert('quiz is over');
+    setTimeout(() => {
+      showScore();
+    }, 2000);
   }
 }
 
-function showScore() {}
+function showScore() {
+  document.getElementById(quizDescContainerColumnId).innerHTML = '';
+  contentHeading.textContent = allTheContent.allDone;
+  let scoreRow = bootStrapHelper.getBootStrapGridRow('scoreDetails', 'div');
+  let scoreNumberCol = bootStrapHelper.getootStrapGridColumn(
+    'score-number',
+    'div'
+  );
+
+  let scoreParagraph = bootStrapHelper.createDomElement('scoreMessage', 'p');
+  scoreParagraph.textContent = allTheContent.finalScoreMessage
+    .concat(getCurrentTimeOnTheClock())
+    .concat('.');
+  scoreNumberCol.appendChild(scoreParagraph);
+  scoreRow.appendChild(scoreNumberCol);
+
+  let intialDetailsCol = bootStrapHelper.getootStrapGridColumn(
+    'initialDetailsCol',
+    'div'
+  );
+
+  let initialMessageParagraph = bootStrapHelper.createDomElement(
+    'initialMessage',
+    'p'
+  );
+  initialMessageParagraph.textContent = allTheContent.enterYourInitials;
+  intialDetailsCol.appendChild(initialMessageParagraph);
+
+  let intialDetailsInputCol = bootStrapHelper.getootStrapGridColumn(
+    'initialDetailsInputCol',
+    'div'
+  );
+  let initialsInput = bootStrapHelper.getFormInput('initialsInput');
+  intialDetailsInputCol.appendChild(initialsInput);
+
+  let intialDetailsSubmitCol = bootStrapHelper.getootStrapGridColumn(
+    'initialDetailsInputCol',
+    'div'
+  );
+  let submitCredButton = bootStrapHelper.getBootStrapButton('submitInitials');
+  submitCredButton.textContent = allTheContent.submitInitialButton;
+  intialDetailsSubmitCol.appendChild(submitCredButton);
+  let inputRow = bootStrapHelper.getBootStrapGridRow('inputRow', 'div');
+  inputRow.appendChild(intialDetailsCol);
+  inputRow.appendChild(intialDetailsInputCol);
+  inputRow.appendChild(intialDetailsSubmitCol);
+
+  document.getElementById(quizDescContainerColumnId).appendChild(scoreRow);
+  document.getElementById(quizDescContainerColumnId).appendChild(inputRow);
+}
 
 function isQuizOver(nextQuestionIndex) {
   return (

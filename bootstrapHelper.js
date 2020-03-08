@@ -66,6 +66,16 @@ bootStrapHelper.getBootStrapBadge = function(id, badgeType, additionalClasses) {
   return bootstrapElement;
 };
 
+bootStrapHelper.getFormInput = function(id, additionalClasses) {
+  let bootstrapElement = this.createDomElement(id, 'input');
+  let bootStrapClass = 'form-control';
+  bootStrapClass = helper.checkIfValueIsPresent(additionalClasses)
+    ? bootStrapClass.concat(' ').concat(additionalClasses)
+    : bootStrapClass;
+  bootstrapElement.setAttribute('class', bootStrapClass);
+  return bootstrapElement;
+};
+
 bootStrapHelper.createDomElement = function(id, domElementType) {
   let domElement = document.createElement(domElementType);
   id = helper.checkIfValueIsPresent(id) ? id : helper.getNextId();

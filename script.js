@@ -255,6 +255,7 @@ function showScoreHistory() {
   clearHighScoresButton.textContent = allTheContent.clearScoresButton;
   clearHighScoresButton.addEventListener('click', function() {
     localStorage.clear();
+    showScoreHistory();
   });
   buttonsCol.appendChild(clearHighScoresButton);
   buttonsROw.appendChild(buttonsCol);
@@ -311,6 +312,9 @@ function decrementClockByOneSecond() {
   if (timeElapsed <= 0) {
     //stop the timer
     clearInterval(quizTimer);
+    setTimeout(() => {
+      showScore();
+    }, delayToShowResponse);
   }
   timerSpan.textContent = 'Time : ' + timeElapsed;
 }
@@ -364,8 +368,8 @@ function createIntroductionBlock() {
   );
   const startQuizButton = bootStrapHelper.getBootStrapButton(
     startQuizButtonId,
-    'btn-sm',
-    null,
+    'btn-lg',
+    'btn-success',
     null
   );
   startQuizButton.textContent = allTheContent.startQuiz;

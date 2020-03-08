@@ -88,9 +88,13 @@ function evaluateUserResponse(event) {
   );
 
   if (event.target.getAttribute('data-correctanswer') === 'false') {
+    event.target.setAttribute('class', 'badge badge-pill badge-danger mt-2');
+    event.target.setAttribute('style', 'font-size: large');
     feedbackParagraph.textContent = 'Wrong!';
     decrementClockByOneSecond();
   } else {
+    event.target.setAttribute('class', 'badge badge-pill badge-success mt-2');
+    event.target.setAttribute('style', 'font-size: large');
     feedbackParagraph.textContent = 'Correct!!';
   }
   document
